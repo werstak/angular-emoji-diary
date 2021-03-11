@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './componets/header/header.component';
 import { DiaryComponent } from './componets/diary/diary.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MaterialModule,
     FormsModule,
     PickerModule,
+    EmojiModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

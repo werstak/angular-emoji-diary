@@ -1,30 +1,16 @@
-<div class="wrap-diary">
+<div class="wrap-card">
 
-  <mat-card class="example-card">
-
-    <!--    <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Leave a comment</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-          </mat-form-field>
-        </form>
-
-        <emoji-mart title="Pick your emoji…" emoji="point_up"></emoji-mart>-->
-
-    <!--    <mat-form-field>
-          <textarea matInput placeholder="Status Content" style="height: 200px;"></textarea>
-          <emoji-mart title="Pick your emoji…" emoji="point_up"></emoji-mart>
-        </mat-form-field>-->
-
-
-    <mat-form-field>
-      <form [formGroup]="emojiForm">
-        <textarea formControlName="inputField" matInput placeholder="Status Content" style="height: 200px;"></textarea>
-        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
-      </form>
-    </mat-form-field>
-
-
+  <mat-card class="diary-card">
+    <div class="diary-card__header">
+      <span>Your diary</span>
+      <span class="material-icons">arrow_forward</span>
+    </div>
+    <form class="diary-form" [formGroup]="emojiForm">
+      <mat-form-field class="diary-card__field" appearance="outline">
+        <textarea formControlName="inputField" matInput rows="3" placeholder="Write something"></textarea>
+      </mat-form-field>
+    </form>
+    <emoji-mart totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
   </mat-card>
 
 </div>
