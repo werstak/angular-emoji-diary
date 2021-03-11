@@ -7,9 +7,14 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./diary.component.scss']
 })
 export class DiaryComponent implements OnInit {
+  showEmojiPicker = false;
   emojiForm = new FormGroup({
     inputField: new FormControl(''),
   });
+
+  toggleEmojiPicker(): void {
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
 
   addEmoji($event): void {
     const data = this.emojiForm.get('inputField');

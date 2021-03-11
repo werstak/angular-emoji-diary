@@ -10,7 +10,16 @@
         <textarea formControlName="inputField" matInput rows="3" placeholder="Write something"></textarea>
       </mat-form-field>
     </form>
-    <emoji-mart totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
+    <emoji-mart *ngIf="showEmojiPicker" totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
+    <mat-card-actions class="diary-card__actions">
+      <div class="diary-card__btnTogle">
+        <button mat-button (click)="toggleEmojiPicker()">
+          <span *ngIf="!showEmojiPicker" class="material-icons">sentiment_satisfied_alt</span>
+          <span *ngIf="showEmojiPicker" class="material-icons">keyboard_alt</span>
+        </button>
+      </div>
+      <button mat-button class="diary-card__btnSave">Save</button>
+    </mat-card-actions>
   </mat-card>
 
 </div>

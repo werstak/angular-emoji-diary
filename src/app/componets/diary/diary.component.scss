@@ -24,6 +24,24 @@
   &__field {
     width: 100%;
   }
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__btnTogle{
+    color: #224272;
+  }
+
+  &__btnSave{
+    background: #224272;
+    color: #FFF;
+    border-radius: 25px;
+    line-height: 25px;
+    font-size: 10px;
+    min-width: 54px;
+  }
 }
 
 .diary-form {
