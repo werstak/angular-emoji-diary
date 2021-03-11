@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-diary',
@@ -6,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./diary.component.scss']
 })
 export class DiaryComponent implements OnInit {
+  emojiForm = new FormGroup({
+    inputField: new FormControl(''),
+  });
 
-  constructor() { }
+  addEmoji($event): void {
+    const data = this.emojiForm.get('inputField');
+    data.patchValue(data.value + $event.emoji.native);
+  }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
