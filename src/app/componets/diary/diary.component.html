@@ -5,25 +5,25 @@
       <span>Your diary</span>
       <span class="material-icons">arrow_forward</span>
     </div>
-    <form class="diary-form" [formGroup]="emojiForm">
+    <form class="diary-form" [formGroup]="emojiForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="diary-card__field" appearance="outline">
         <textarea formControlName="inputField" matInput rows="3" placeholder="Write something"></textarea>
       </mat-form-field>
+      <mat-card-actions class="diary-card__actions">
+        <div class="diary-card__btnTogle">
+          <button type="button" mat-button (click)="toggleEmojiPicker()">
+            <span *ngIf="!showEmojiPicker" class="material-icons">sentiment_satisfied_alt</span>
+            <span *ngIf="showEmojiPicker" class="material-icons diary-card__btnTogle_mod">keyboard</span>
+          </button>
+        </div>
+        <button type="submit" mat-button class="diary-card__btnSave">Save</button>
+      </mat-card-actions>
     </form>
-    <emoji-mart *ngIf="showEmojiPicker" totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
-    <mat-card-actions class="diary-card__actions">
-      <div class="diary-card__btnTogle">
-        <button mat-button (click)="toggleEmojiPicker()">
-          <span *ngIf="!showEmojiPicker" class="material-icons">sentiment_satisfied_alt</span>
-          <span *ngIf="showEmojiPicker" class="material-icons diary-card__btnTogle_mod">keyboard</span>
-        </button>
-      </div>
-      <button mat-button class="diary-card__btnSave">Save</button>
-    </mat-card-actions>
 
-    <app-diary-entry></app-diary-entry>
+    <emoji-mart *ngIf="showEmojiPicker" totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
+
+    <app-diary-entry [posts]="postsArr"></app-diary-entry>
 
   </mat-card>
 
 </div>
-

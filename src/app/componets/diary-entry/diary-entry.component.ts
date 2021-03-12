@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DiaryEntry } from '../../interfaces/diary-entry';
 
 @Component({
   selector: 'app-diary-entry',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./diary-entry.component.scss']
 })
 export class DiaryEntryComponent implements OnInit {
+
+  @Input() posts: DiaryEntry[];
 
   constructor() { }
 
