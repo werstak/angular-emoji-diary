@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { DiaryEntry } from '../../interfaces/diary-entry';
 
 @Component({
@@ -6,13 +7,7 @@ import { DiaryEntry } from '../../interfaces/diary-entry';
   templateUrl: './diary-entry.component.html',
   styleUrls: ['./diary-entry.component.scss']
 })
-export class DiaryEntryComponent implements OnInit {
+export class DiaryEntryComponent {
 
-  @Input() posts: DiaryEntry[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  @Input() post: DiaryEntry;
 }

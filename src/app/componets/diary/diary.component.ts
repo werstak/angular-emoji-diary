@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { DiaryEntry } from '../../interfaces/diary-entry';
+import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+
 import * as moment from 'moment';
+
+import { DiaryEntry } from '../../interfaces/diary-entry';
 
 @Component({
   selector: 'app-diary',
@@ -9,13 +11,11 @@ import * as moment from 'moment';
   styleUrls: ['./diary.component.scss']
 })
 export class DiaryComponent {
-  postsArr: DiaryEntry[] = [];
-  post: DiaryEntry;
+  posts: DiaryEntry[] = [];
+  editMessage: any;
 
   showEmojiPicker = false;
-  emojiForm = new FormGroup({
-    inputField: new FormControl(''),
-  });
+  message: FormControl = new FormControl('', [Validators.required]);
 
   toggleEmojiPicker(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -26,16 +26,25 @@ export class DiaryComponent {
   }
 
   addEmoji($event): void {
-    const data = this.emojiForm.get('inputField');
-    data.patchValue(data.value + $event.emoji.native);
-    console.log('data', data);
+    const {value} = this.message;
+    this.message.patchValue(value + $event.emoji.native);
   }
 
-  onSubmit(): void {
-    const {value: {inputField: post}} = this.emojiForm;
+  addMessage(): void {
+    const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
-    this.postsArr.push({post, date} as any);
-    this.emojiForm.reset();
+    this.posts.push({message, date} as any);
+    this.message.reset();
     this.hideEmojiPicker();
+  }
+
+  editPost(i, post): void {
+    console.log(i, post);
+    this.editMessage = post.message;
+    console.log(this.editMessage);
+  }
+
+  removePost(i): void {
+    this.posts.splice(i, 1);
   }
 }
