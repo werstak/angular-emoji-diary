@@ -28,6 +28,62 @@
 
     <emoji-mart *ngIf="showEmojiPicker" totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
 
+    <app-diary-entry *ngFor="let post of posts" [post]="post">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="editPost(post)" mat-menu-item>
+          <mat-icon>mode_edit
+          </mat-icon>
+          <span>Edit</span>
+        </button>
+        <button (click)="removePost(post.id)" mat-menu-item>
+          <mat-icon>delete_forever
+          </mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </app-diary-entry>
+
+  </mat-card>
+
+</div>
+
+
+
+
+<!--
+<div class="wrap-card">
+
+  <mat-card class="diary-card">
+    <div class="diary-card__header">
+      <span>Your diary</span>
+      <span class="material-icons">arrow_forward</span>
+    </div>
+    <form class="diary-form">
+      <mat-form-field class="diary-card__field" appearance="outline">
+        <textarea [formControl]="message" matInput rows="3" placeholder="Write something"></textarea>
+      </mat-form-field>
+      <mat-card-actions class="diary-card__actions">
+        <div class="diary-card__btnTogle">
+          <button type="button" mat-button (click)="toggleEmojiPicker()">
+            <span *ngIf="!showEmojiPicker" class="material-icons">sentiment_satisfied_alt</span>
+            <span *ngIf="showEmojiPicker" class="material-icons diary-card__btnTogle_mod">keyboard</span>
+          </button>
+        </div>
+        <button type="button"
+                [disabled]="message.invalid"
+                (click)="addPost()"
+                mat-button
+                class="diary-card__btnSave">
+          Save
+        </button>
+      </mat-card-actions>
+    </form>
+
+    <emoji-mart *ngIf="showEmojiPicker" totalFrequentLines="1" (emojiClick)="addEmoji($event)"></emoji-mart>
+
     <app-diary-entry *ngFor="let post of posts; let i = index" [post]="post">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
@@ -49,3 +105,4 @@
   </mat-card>
 
 </div>
+-->

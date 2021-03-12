@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
+import * as uuid from 'uuid';
+
 
 import { DiaryEntry } from '../../interfaces/diary-entry';
 
@@ -16,7 +18,8 @@ export class DiaryComponent {
   showEmojiPicker = false;
   message: FormControl = new FormControl('', [Validators.required]);
 
-  private index: number;
+  private index: string;
+  private myId: string = uuid.v4();
 
   toggleEmojiPicker(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -32,22 +35,33 @@ export class DiaryComponent {
   }
 
   addPost(): void {
+    console.log(this.myId);
+    const {value: message} = this.message;
+    const date = moment().format('hh:mm A | MMM DD, YYYY');
+    const id = this.myId;
+    this.posts.push({message, date, id} as any);
+    this.message.reset();
+    this.hideEmojiPicker();
+    console.log(this.posts);
+
+
+    /*    console.log(this.id);
     const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
     const index = this.index ?? this.posts.length; // check if index is defined otherwise return array length
     this.posts = [...this.posts.slice(0, index), { message, date }, ...this.posts.slice(index + 1)];
     this.message.reset();
     this.index = undefined; // clear previously selected index
-    this.hideEmojiPicker();
+    this.hideEmojiPicker();*/
   }
 
-  editPost(i, post): void {
+  editPost(post): void {
     this.message.setValue(post.message);
-    this.index = i;
+    this.myId = post.id;
   }
 
-  removePost(i): void {
-    this.posts.splice(i, 1);
+  removePost(id): void {
+    this.posts.splice(id, 1);
   }
 }
 
