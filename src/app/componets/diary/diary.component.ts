@@ -12,10 +12,11 @@ import { DiaryEntry } from '../../interfaces/diary-entry';
 })
 export class DiaryComponent {
   posts: DiaryEntry[] = [];
-  editMessage: any;
 
   showEmojiPicker = false;
   message: FormControl = new FormControl('', [Validators.required]);
+
+  private index: number;
 
   toggleEmojiPicker(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -30,18 +31,19 @@ export class DiaryComponent {
     this.message.patchValue(value + $event.emoji.native);
   }
 
-  addMessage(): void {
+  addPost(): void {
     const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
-    this.posts.push({message, date} as any);
+    const index = this.index ?? this.posts.length; // check if index is defined otherwise return array length
+    this.posts = [...this.posts.slice(0, index), { message, date }, ...this.posts.slice(index + 1)];
     this.message.reset();
+    this.index = undefined; // clear previously selected index
     this.hideEmojiPicker();
   }
 
   editPost(i, post): void {
-    console.log(i, post);
-    this.editMessage = post.message;
-    console.log(this.editMessage);
+    this.message.setValue(post.message);
+    this.index = i;
   }
 
   removePost(i): void {

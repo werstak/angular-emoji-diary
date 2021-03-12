@@ -7,7 +7,7 @@
     </div>
     <form class="diary-form">
       <mat-form-field class="diary-card__field" appearance="outline">
-        <textarea [formControl]="message" matInput rows="3" placeholder="Write something">{{ editMessage }}</textarea>
+        <textarea [formControl]="message" matInput rows="3" placeholder="Write something"></textarea>
       </mat-form-field>
       <mat-card-actions class="diary-card__actions">
         <div class="diary-card__btnTogle">
@@ -18,7 +18,7 @@
         </div>
         <button type="button"
                 [disabled]="message.invalid"
-                (click)="addMessage()"
+                (click)="addPost()"
                 mat-button
                 class="diary-card__btnSave">
           Save
