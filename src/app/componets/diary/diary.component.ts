@@ -50,3 +50,4 @@ export class DiaryComponent {
     this.posts.splice(i, 1);
   }
 }
+
