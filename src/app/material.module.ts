@@ -10,6 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatListModule } from '@angular/material/list';
 
 
 const modules = [
@@ -24,6 +25,7 @@ const modules = [
   MatOptionModule,
   MatSelectModule,
   MatSliderModule,
+  MatListModule,
 ];
 
 @NgModule({

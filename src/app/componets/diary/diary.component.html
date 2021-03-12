@@ -15,11 +15,14 @@
       <div class="diary-card__btnTogle">
         <button mat-button (click)="toggleEmojiPicker()">
           <span *ngIf="!showEmojiPicker" class="material-icons">sentiment_satisfied_alt</span>
-          <span *ngIf="showEmojiPicker" class="material-icons">keyboard_alt</span>
+          <span *ngIf="showEmojiPicker" class="material-icons diary-card__btnTogle_mod">keyboard</span>
         </button>
       </div>
       <button mat-button class="diary-card__btnSave">Save</button>
     </mat-card-actions>
+
+    <app-diary-entry></app-diary-entry>
+
   </mat-card>
 
 </div>

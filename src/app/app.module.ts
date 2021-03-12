@@ -9,12 +9,14 @@ import { HeaderComponent } from './componets/header/header.component';
 import { DiaryComponent } from './componets/diary/diary.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { DiaryEntryComponent } from './componets/diary-entry/diary-entry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DiaryComponent
+    DiaryComponent,
+    DiaryEntryComponent
   ],
   imports: [
     BrowserModule,

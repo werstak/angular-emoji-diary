@@ -31,12 +31,15 @@
     justify-content: space-between;
   }
   &__btnTogle{
-    color: #224272;
+    color: #3E52BE;
+    &_mod {
+      color: #000000;
+    }
   }
 
   &__btnSave{
     background: #224272;
-    color: #FFF;
+    color: #FFFFFF;
     border-radius: 25px;
     line-height: 25px;
     font-size: 10px;
