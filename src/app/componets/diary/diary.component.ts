@@ -18,7 +18,6 @@ export class DiaryComponent {
   showEmojiPicker = false;
   message: FormControl = new FormControl('', [Validators.required]);
 
-  private index: string;
   private myId: string = uuid.v4();
 
   toggleEmojiPicker(): void {
@@ -35,6 +34,11 @@ export class DiaryComponent {
   }
 
   addPost(): void {
+
+    // const checkId = this.posts.findIndex(x => x.id === '45');
+    // if (checkId) {
+    //
+    // }
     console.log(this.myId);
     const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
