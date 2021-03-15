@@ -14,11 +14,10 @@ import { DiaryEntry } from '../../interfaces/diary-entry';
 })
 export class DiaryComponent {
   posts: DiaryEntry[] = [];
-
   showEmojiPicker = false;
   message: FormControl = new FormControl('', [Validators.required]);
-
-  private myId: string = uuid.v4();
+  private myId: string;
+  private editFlag: boolean;
 
   toggleEmojiPicker(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -35,18 +34,53 @@ export class DiaryComponent {
 
   addPost(): void {
 
-    // const checkId = this.posts.findIndex(x => x.id === '45');
-    // if (checkId) {
-    //
-    // }
-    console.log(this.myId);
+
+
+    if (this.editFlag === true) {
+      const id = this.myId;
+
+      // const checkId = this.posts.find(x => x.id === id);
+      // console.log('checkId', checkId);
+
+      const {value: message} = this.message;
+      const date = moment().format('hh:mm A | MMM DD, YYYY');
+      const newItems = [{message, date, id}];
+      this.message.reset();
+      this.hideEmojiPicker();
+
+
+      this.posts = this.posts.map(x => {
+        // tslint:disable-next-line:no-shadowed-variable
+        const item = newItems.find(({ id }) => id === x.id);
+        return item ? item : x;
+      });
+
+
+
+      this.editFlag = false;
+      return;
+    } else  {
+      this.myId = uuid.v4();
+      const id = this.myId;
+      const {value: message} = this.message;
+      const date = moment().format('hh:mm A | MMM DD, YYYY');
+      this.posts.push({message, date, id} as any);
+      this.message.reset();
+      this.hideEmojiPicker();
+      console.log('addPost == this.posts', this.posts);
+
+    }
+
+
+
+/*    this.myId = uuid.v4();
+    const id = this.myId;
     const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
-    const id = this.myId;
     this.posts.push({message, date, id} as any);
     this.message.reset();
     this.hideEmojiPicker();
-    console.log(this.posts);
+    console.log('addPost == this.posts', this.posts);*/
 
 
     /*    console.log(this.id);
@@ -62,6 +96,7 @@ export class DiaryComponent {
   editPost(post): void {
     this.message.setValue(post.message);
     this.myId = post.id;
+    this.editFlag = true;
   }
 
   removePost(id): void {
