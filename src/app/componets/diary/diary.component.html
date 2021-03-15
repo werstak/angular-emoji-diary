@@ -18,10 +18,10 @@
         </div>
         <button type="button"
                 [disabled]="message.invalid"
-                (click)="addPost()"
+                (click)="save()"
                 mat-button
                 class="diary-card__btnSave">
-          {{ editFlag == true ? 'Update' :  'Save' }}
+          {{ editFlag === true ? 'Update' :  'Save' }}
         </button>
       </mat-card-actions>
     </form>

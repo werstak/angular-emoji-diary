@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import * as moment from 'moment';
 import * as uuid from 'uuid';
 
 import { DiaryEntry } from '../../interfaces/diary-entry';
+import { Message } from '../../shared/models/message.model';
 
 @Component({
   selector: 'app-diary',
@@ -31,33 +31,25 @@ export class DiaryComponent {
     this.message.patchValue(value + $event.emoji.native);
   }
 
-  addPost(): void {
-    if (this.editFlag === false) {
-      this.currentId = uuid.v4();
-      const id = this.currentId;
-      const {value: message} = this.message;
-      const date = moment().format('hh:mm A | MMM DD, YYYY');
-      this.posts.push({message, date, id} as any);
-      this.message.reset();
-      this.hideEmojiPicker();
-      console.log('arr', this.posts);
+  save(): void {
+    this.currentId = this.editFlag ? this.currentId : uuid.v4();
+    const message = new Message(this.message.value, this.currentId);
+    if (this.editFlag) {
+      this.updatePost(message);
     } else {
-      this.updatePost();
+      this.posts.push(message);
     }
-  }
-
-  updatePost(): void {
-    const id = this.currentId;
-    const {value: message} = this.message;
-    const date = moment().format('hh:mm A | MMM DD, YYYY');
-    const newItem = [{message, date, id}];
-    this.posts = this.posts.map(x => {
-      // tslint:disable-next-line:no-shadowed-variable
-      const item = newItem.find(({id}) => id === x.id);
-      return item ? item : x;
-    });
     this.message.reset();
     this.hideEmojiPicker();
+  }
+
+  updatePost(message): void {
+    this.posts = this.posts.map(post => {
+      if (this.currentId === post.id) {
+        return {...message};
+      }
+      return {...post};
+    });
     this.editFlag = false;
   }
 
