@@ -4,7 +4,6 @@ import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as uuid from 'uuid';
 
-
 import { DiaryEntry } from '../../interfaces/diary-entry';
 
 @Component({
@@ -41,11 +40,11 @@ export class DiaryComponent {
       this.posts.push({message, date, id} as any);
       this.message.reset();
       this.hideEmojiPicker();
+      console.log('arr', this.posts);
     } else {
       this.updatePost();
     }
   }
-
 
   updatePost(): void {
     const id = this.currentId;
@@ -69,7 +68,7 @@ export class DiaryComponent {
   }
 
   removePost(id): void {
-    this.posts.splice(id, 1);
+    this.posts = this.posts.filter(n => n.id !== id);
   }
 }
 
