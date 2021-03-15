@@ -16,8 +16,8 @@ export class DiaryComponent {
   posts: DiaryEntry[] = [];
   showEmojiPicker = false;
   message: FormControl = new FormControl('', [Validators.required]);
-  private myId: string;
-  private editFlag: boolean;
+  currentId: string;
+  editFlag = false;
 
   toggleEmojiPicker(): void {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -33,69 +33,38 @@ export class DiaryComponent {
   }
 
   addPost(): void {
-
-
-
-    if (this.editFlag === true) {
-      const id = this.myId;
-
-      // const checkId = this.posts.find(x => x.id === id);
-      // console.log('checkId', checkId);
-
-      const {value: message} = this.message;
-      const date = moment().format('hh:mm A | MMM DD, YYYY');
-      const newItems = [{message, date, id}];
-      this.message.reset();
-      this.hideEmojiPicker();
-
-
-      this.posts = this.posts.map(x => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const item = newItems.find(({ id }) => id === x.id);
-        return item ? item : x;
-      });
-
-
-
-      this.editFlag = false;
-      return;
-    } else  {
-      this.myId = uuid.v4();
-      const id = this.myId;
+    if (this.editFlag === false) {
+      this.currentId = uuid.v4();
+      const id = this.currentId;
       const {value: message} = this.message;
       const date = moment().format('hh:mm A | MMM DD, YYYY');
       this.posts.push({message, date, id} as any);
       this.message.reset();
       this.hideEmojiPicker();
-      console.log('addPost == this.posts', this.posts);
-
+    } else {
+      this.updatePost();
     }
+  }
 
 
-
-/*    this.myId = uuid.v4();
-    const id = this.myId;
+  updatePost(): void {
+    const id = this.currentId;
     const {value: message} = this.message;
     const date = moment().format('hh:mm A | MMM DD, YYYY');
-    this.posts.push({message, date, id} as any);
+    const newItem = [{message, date, id}];
+    this.posts = this.posts.map(x => {
+      // tslint:disable-next-line:no-shadowed-variable
+      const item = newItem.find(({id}) => id === x.id);
+      return item ? item : x;
+    });
     this.message.reset();
     this.hideEmojiPicker();
-    console.log('addPost == this.posts', this.posts);*/
-
-
-    /*    console.log(this.id);
-    const {value: message} = this.message;
-    const date = moment().format('hh:mm A | MMM DD, YYYY');
-    const index = this.index ?? this.posts.length; // check if index is defined otherwise return array length
-    this.posts = [...this.posts.slice(0, index), { message, date }, ...this.posts.slice(index + 1)];
-    this.message.reset();
-    this.index = undefined; // clear previously selected index
-    this.hideEmojiPicker();*/
+    this.editFlag = false;
   }
 
   editPost(post): void {
     this.message.setValue(post.message);
-    this.myId = post.id;
+    this.currentId = post.id;
     this.editFlag = true;
   }
 
